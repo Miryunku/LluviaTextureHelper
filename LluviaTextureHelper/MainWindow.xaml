@@ -1,0 +1,1060 @@
+﻿<Window x:Class="LluviaTextureHelper.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LluviaTextureHelper"
+        xmlns:p="clr-namespace:LluviaTextureHelper.Properties"
+        xmlns:uc="clr-namespace:LluviaTextureHelper.UC"
+        mc:Ignorable="d"
+        UseLayoutRounding="True"
+        Title="LluviaTextureHelper (version 1.0)" Height="700" Width="1000" Background="#202020">
+    <Window.Resources>
+        <Thickness x:Key="MediumMarginR">0,0,6,0</Thickness>
+        <Thickness x:Key="MediumMarginT">0,6,0,0</Thickness>
+        <Thickness x:Key="MediumMarginB">0,0,0,6</Thickness>
+
+        <Thickness x:Key="MediumMarginTB">0,6,0,6</Thickness>
+
+        <Thickness x:Key="LargeMarginT">0,10,0,0</Thickness>
+        <Thickness x:Key="LargeMarginB">0,0,0,10</Thickness>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Menu Grid.ColumnSpan="2">
+            <MenuItem Header="{x:Static p:Resources.File}">
+                <MenuItem Header="{x:Static p:Resources.OpenJsonFile}" Click="MenuItem_Click_OpenJsonFile"/>
+                <MenuItem Header="{x:Static p:Resources.OpenImageFile}" Click="MenuItem_Click_OpenImageFile"/>
+                <MenuItem Header="{x:Static p:Resources.Export}" Click="MenuItem_Click_ExportJson"/>
+            </MenuItem>
+
+            <MenuItem Header="{x:Static p:Resources.Functions}">
+                <MenuItem Header="{x:Static p:Resources.LoadSkinData}" Click="MenuItem_Click_LoadSkinData"/>
+                <!--<MenuItem Header="{x:Static p:Resources.UnloadSkinData}" Click="MenuItem_Click_UnloadSkinData"/>-->
+                <Separator/>
+                <MenuItem Header="{x:Static p:Resources.PreviewSkin}" Click="MenuItem_Click_PreviewSkin"/>
+                <MenuItem Header="{x:Static p:Resources.GeneratePreview}" Click="MenuItem_Click_GeneratePreview"/>
+            </MenuItem>
+        </Menu>
+
+        <ScrollViewer Grid.Row="1" Grid.Column="0" Style="{DynamicResource ScrollViewerStyle1}">
+            <StackPanel Margin="10">
+                <TextBlock Text="{x:Static p:Resources.Tools}" Foreground="{StaticResource TextBlock_Header_Brush}" Margin="{StaticResource MediumMarginB}"/>
+                <RadioButton x:Name="radioButton_toolMover" GroupName="Tools" IsChecked="True" Content="{x:Static p:Resources.Mover}" Foreground="{StaticResource TextBlock_Normal_Brush}" Margin="{StaticResource MediumMarginB}"/>
+                <RadioButton x:Name="radioButton_toolResizer" GroupName="Tools" Content="{x:Static p:Resources.Resizer}" Foreground="{StaticResource TextBlock_Normal_Brush}" Unchecked="RadioButton_toolResizer_Unchecked" Margin="{StaticResource LargeMarginB}"/>
+
+                <Expander Header="{x:Static p:Resources.Canvas}" Template="{StaticResource ExpanderTemplate1}">
+                    <Grid Margin="{StaticResource LargeMarginT}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{x:Static p:Resources.Width}" Foreground="{StaticResource TextBlock_Normal_Brush}"/>
+                        <TextBox x:Name="textBox_canvasWidth" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Height}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="1"/>
+                        <TextBox x:Name="textBox_canvasHeight" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="1" Grid.Column="2"/>
+
+                        <Button Click="Button_Click_ResizeCanvas" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.Resize}" Grid.Row="2" Grid.ColumnSpan="3"/>
+                    </Grid>
+                </Expander>
+
+                <Line Stroke="#B4B4B4" StrokeThickness="1" Stretch="Uniform" X1="0" Y1="0" X2="1" Y2="0" Margin="0,10,0,10"/>
+
+                <Expander Header="{x:Static p:Resources.SkinCredits}" Template="{StaticResource ExpanderTemplate1}">
+                    <Grid Margin="{StaticResource LargeMarginT}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{x:Static p:Resources.SkinName}" Foreground="{StaticResource TextBlock_Normal_Brush}"/>
+                        <TextBox x:Name="textBox_skinName" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.SkinVersion}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="1"/>
+                        <TextBox x:Name="textBox_skinVersion" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="1" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.SkinCreator}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="2"/>
+                        <TextBox x:Name="textBox_skinCreator" Style="{StaticResource STY_TBX}" Grid.Row="2" Grid.Column="2"/>
+                    </Grid>
+                </Expander>
+
+                <Line Stroke="#B4B4B4" StrokeThickness="1" Stretch="Uniform" X1="0" Y1="0" X2="1" Y2="0" Margin="0,10,0,10"/>
+
+                <Expander Header="{x:Static p:Resources.AccompanyingArtwork}" Template="{StaticResource ExpanderTemplate1}">
+                    <Grid Margin="{StaticResource LargeMarginT}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="X"
+                                   Foreground="{StaticResource TextBlock_Normal_Brush}"/>
+                        <TextBox x:Name="textBox_accompanyingArtwork_X"
+                                 Style="{StaticResource STY_TBX}"
+                                 Margin="{StaticResource MediumMarginB}"
+                                 Grid.Column="2"/>
+
+                        <TextBlock Text="Y"
+                                   Foreground="{StaticResource TextBlock_Normal_Brush}"
+                                   Grid.Row="1"/>
+                        <TextBox x:Name="textBox_accompanyingArtwork_Y"
+                                 Style="{StaticResource STY_TBX}"
+                                 Margin="{StaticResource MediumMarginB}"
+                                 Grid.Row="1" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Width}"
+                                   Foreground="{StaticResource TextBlock_Normal_Brush}"
+                                   Grid.Row="2"/>
+                        <TextBox x:Name="textBox_accompanyingArtwork_W"
+                                 Style="{StaticResource STY_TBX}"
+                                 Margin="{StaticResource MediumMarginB}"
+                                 Grid.Row="2" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Height}"
+                                   Foreground="{StaticResource TextBlock_Normal_Brush}"
+                                   Grid.Row="3"/>
+                        <TextBox x:Name="textBox_accompanyingArtwork_H"
+                                 Style="{StaticResource STY_TBX}"
+                                 Margin="{StaticResource MediumMarginB}"
+                                 Grid.Row="3" Grid.Column="2"/>
+
+                        <Button Click="Button_Click_ArtworkApplyChanges"
+                                Style="{StaticResource ButtonStyle1}"
+                                Content="{x:Static p:Resources.Apply}"
+                                Grid.Row="4" Grid.ColumnSpan="3"/>
+                    </Grid>
+                </Expander>
+
+                <Line Stroke="#B4B4B4" StrokeThickness="1" Stretch="Uniform" X1="0" Y1="0" X2="1" Y2="0" Margin="0,10,0,10"/>
+
+                <Expander Header="{x:Static p:Resources.SkinComponents}" Template="{StaticResource ExpanderTemplate1}">
+                    <Grid Margin="{StaticResource LargeMarginT}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Click="Button_Click_InsertInCanvas" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.InsertInCanvas}" Margin="0,0,6,6"/>
+                        <Button Click="Button_Click_ExtractFromCanvas" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.ExtractFromCanvas}" Margin="{StaticResource MediumMarginB}" Grid.Column="1"/>
+
+                        <Button Click="Button_Click_InsertAllInCanvas" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.InsertAllInCanvas}" Margin="{StaticResource MediumMarginR}" Grid.Row="1"/>
+                        <Button Click="Button_Click_ExtractAllFromCanvas" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.ExtractAllFromCanvas}" Grid.Row="1" Grid.Column="1"/>
+
+                        <ListBox x:Name="listBox_skinComponents" Style="{StaticResource STY_LTB}" Height="200" Margin="{StaticResource MediumMarginT}" Grid.Row="2" Grid.ColumnSpan="2">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="body" Text="{Binding Byname}" Foreground="{StaticResource TextBlock_Normal_Brush}"/>
+
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding InCanvas}" Value="True">
+                                            <Setter TargetName="body" Property="Background" Value="Indigo"/>
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding HasTexture}" Value="False">
+                                            <Setter TargetName="body" Property="Background" Value="DarkRed"/>
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </Expander>
+
+                <Line Stroke="#B4B4B4" StrokeThickness="1" Stretch="Uniform" X1="0" Y1="0" X2="1" Y2="0" Margin="0,10,0,10"/>
+
+                <Expander Header="{x:Static p:Resources.Colors}" Template="{StaticResource ExpanderTemplate1}">
+                    <Grid Margin="{StaticResource LargeMarginT}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{x:Static p:Resources.Red}" Foreground="{StaticResource TextBlock_Normal_Brush}"/>
+                        <TextBox x:Name="textBox_red" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Green}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="1"/>
+                        <TextBox x:Name="textBox_green" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="1" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Blue}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="2"/>
+                        <TextBox x:Name="textBox_blue" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="2" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Opacity}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="3"/>
+                        <TextBox x:Name="textBox_opacity" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="3" Grid.Column="2"/>
+
+                        <Rectangle x:Name="rectangle_color" Fill="LemonChiffon" Width="Auto" Height="20" Margin="{StaticResource MediumMarginTB}" Grid.Row="4" Grid.ColumnSpan="3"/>
+
+                        <ComboBox Style="{DynamicResource ComboBoxStyle1}" x:Name="comboBox_coloring" SelectedIndex="0" Margin="{StaticResource MediumMarginB}" Grid.Row="5" Grid.ColumnSpan="3">
+                            <ComboBoxItem Content="{x:Static p:Resources.Columns1357}"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.Columns246}"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.ColumnSeparator}"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.VerdictLine}"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.PlayfieldBorder}"/>
+                        </ComboBox>
+
+                        <Button Click="Button_Click_ApplyColor" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.Apply}" Grid.Row="6" Grid.ColumnSpan="3"/>
+                    </Grid>
+                </Expander>
+
+                <Line Stroke="#B4B4B4" StrokeThickness="1" Stretch="Uniform" X1="0" Y1="0" X2="1" Y2="0" Margin="0,10,0,10"/>
+
+                <Expander Header="{x:Static p:Resources.Wallpapers}" Template="{StaticResource ExpanderTemplate1}">
+                    <Grid Margin="{StaticResource LargeMarginT}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{x:Static p:Resources.ImageFile}" Foreground="{StaticResource TextBlock_Normal_Brush}"/>
+                        <TextBox x:Name="textBox_wallpaper" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Column="2"/>
+
+                        <StackPanel Orientation="Horizontal" Margin="{StaticResource MediumMarginB}" Grid.Row="1" Grid.ColumnSpan="3">
+                            <Button Click="Button_Click_AddWallpaper" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.Add}" Margin="{StaticResource MediumMarginR}"/>
+                            <Button Click="Button_Click_RemoveWallpaper" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.Remove}"/>
+                        </StackPanel>
+
+                        <ListBox x:Name="listBox_wallpapers" Style="{StaticResource STY_LTB}" Height="200" Margin="{StaticResource MediumMarginT}" Grid.Row="2" Grid.ColumnSpan="3"/>
+                    </Grid>
+                </Expander>
+
+                <Line Stroke="#B4B4B4" StrokeThickness="1" Stretch="Uniform" X1="0" Y1="0" X2="1" Y2="0" Margin="0,10,0,10"/>
+
+                <Expander Header="{x:Static p:Resources.Companion}" Template="{StaticResource ExpanderTemplate1}">
+                    <Grid Margin="{StaticResource LargeMarginT}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{x:Static p:Resources.Name}" Foreground="{StaticResource TextBlock_Normal_Brush}"/>
+                        <TextBox x:Name="textBox_companionName" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.FrameQuantity}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="1"/>
+                        <TextBox x:Name="textBox_companionFrameQuantity" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="1" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.FrameWidth}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="2"/>
+                        <TextBox x:Name="textBox_companionFrameWidth" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="2" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.FrameHeight}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="3"/>
+                        <TextBox x:Name="textBox_companionFrameHeight" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="3" Grid.Column="2"/>
+
+                        <TextBlock Text="X" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="4"/>
+                        <TextBox x:Name="textBox_companionX" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="4" Grid.Column="2"/>
+
+                        <TextBlock Text="Y" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="5"/>
+                        <TextBox x:Name="textBox_companionY" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="5" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Width}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="6"/>
+                        <TextBox x:Name="textBox_companionSW" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="6" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Height}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="7"/>
+                        <TextBox x:Name="textBox_companionSH" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="7" Grid.Column="2"/>
+
+                        <Button Click="Button_Click_CompanionApplyChanges" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.Apply}" Grid.Row="8" Grid.ColumnSpan="3"/>
+                    </Grid>
+                </Expander>
+
+                <Line Stroke="#B4B4B4" StrokeThickness="1" Stretch="Uniform" X1="0" Y1="0" X2="1" Y2="0" Margin="0,10,0,10"/>
+
+                <Expander Header="{x:Static p:Resources.Playfield}" Template="{StaticResource ExpanderTemplate1}">
+                    <Grid Margin="{StaticResource LargeMarginT}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <CheckBox Style="{StaticResource STY_CKB}" Content="{x:Static p:Resources.DrawPlayfield}" Checked="CheckBox_DrawPlayfield_Checked" Unchecked="CheckBox_DrawPlayfield_Unchecked" Margin="{StaticResource MediumMarginB}" Grid.ColumnSpan="3"/>
+
+                        <TextBlock Text="{x:Static p:Resources.OffsetFromLeftSide}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="1"/>
+                        <TextBox x:Name="textBox_playfieldOffset" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="1" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Height}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="2"/>
+                        <TextBox x:Name="textBox_playfieldHeight" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="2" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Columns1357Width}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="3"/>
+                        <TextBox x:Name="textBox_playfield1357ColumnsWidth" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="3" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Columns246Width}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="4"/>
+                        <TextBox x:Name="textBox_playfield246ColumnsWidth" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="4" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.ColumnSeparatorsWidth}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="5"/>
+                        <TextBox x:Name="textBox_playfieldColumnSeparatorsWidth" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="5" Grid.Column="2"/>
+
+                        <Button Click="Button_Click_PlayfieldApplyChanges" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.Apply}" Grid.Row="6" Grid.ColumnSpan="3"/>
+                    </Grid>
+                </Expander>
+                
+                <Line Stroke="#B4B4B4" StrokeThickness="1" Stretch="Uniform" X1="0" Y1="0" X2="1" Y2="0" Margin="0,10,0,10"/>
+
+                <Expander Header="{x:Static p:Resources.Bombs}" Template="{StaticResource ExpanderTemplate1}">
+                    <Grid Margin="{StaticResource LargeMarginT}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{x:Static p:Resources.Name}" Foreground="{StaticResource TextBlock_Normal_Brush}"/>
+                        <TextBox x:Name="textBox_bombName" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.FrameQuantity}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="1"/>
+                        <TextBox x:Name="textBox_bombFrameQuantity" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="1" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.FrameWidth}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="2"/>
+                        <TextBox x:Name="textBox_bombFrameWidth" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="2" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.FrameHeight}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="3"/>
+                        <TextBox x:Name="textBox_bombFrameHeight" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="3" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Duration}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="4"/>
+                        <TextBox x:Name="textBox_bombDuration" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="4" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Width}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="5"/>
+                        <TextBox x:Name="textBox_bombSW" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="5" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Height}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="6"/>
+                        <TextBox x:Name="textBox_bombSH" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="6" Grid.Column="2"/>
+
+                        <Button Click="Button_Click_BombsVisualize" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.Visualize}" Grid.Row="7"  Grid.ColumnSpan="3"/>
+                    </Grid>
+                </Expander>
+
+                <Line Stroke="#B4B4B4" StrokeThickness="1" Stretch="Uniform" X1="0" Y1="0" X2="1" Y2="0" Margin="0,10,0,10"/>
+
+                <Expander Header="{x:Static p:Resources.Lasers}" Template="{StaticResource ExpanderTemplate1}">
+                    <Grid Margin="{StaticResource LargeMarginT}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{x:Static p:Resources.Height}" Foreground="{StaticResource TextBlock_Normal_Brush}"/>
+                        <TextBox x:Name="textBox_laserSH" Style="{StaticResource STY_TBX}" Margin="{StaticResource LargeMarginB}" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Duration}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="1"/>
+                        <TextBox x:Name="textBox_laserDuration" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="1" Grid.Column="2"/>
+
+                        <TextBlock Foreground="{StaticResource TextBlock_Header_Brush}" Text="{x:Static p:Resources.LaserAnimations}" Margin="{StaticResource MediumMarginB}" Grid.Row="2" Grid.ColumnSpan="3"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Time}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="3"/>
+                        <TextBox x:Name="textBox_laserTime" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="3" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.WidthFactor}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="4"/>
+                        <TextBox x:Name="textBox_laserWidthFactor" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="4" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.HeightFactor}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="5"/>
+                        <TextBox x:Name="textBox_laserHeightFactor" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="5" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.OpacityFactor}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="6"/>
+                        <TextBox x:Name="textBox_laserOpacityFactor" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="6" Grid.Column="2"/>
+
+                        <StackPanel Orientation="Horizontal" Margin="{StaticResource MediumMarginB}" Grid.Row="7" Grid.ColumnSpan="3">
+                            <Button Click="Button_Click_AddLaserAnime" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.Add}" Margin="{StaticResource MediumMarginR}"/>
+                            <Button Click="Button_Click_ModifyLaserAnime" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.Modify}" Margin="{StaticResource MediumMarginR}"/>
+                            <Button Click="Button_Click_RemoveLaserAnime" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.Remove}"/>
+                        </StackPanel>
+
+                        <ListBox x:Name="listBox_laserAnimations"
+                                 Style="{StaticResource STY_LTB}"
+                                 Height="200"
+                                 Margin="{StaticResource MediumMarginB}"
+                                 Grid.Row="8" Grid.ColumnSpan="3"
+                                 SelectionChanged="ListBox_SelectionChanged_LaserAnimations">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Rep}" Foreground="{StaticResource TextBlock_Normal_Brush}"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                        <Button Click="Button_Click_LasersVisualize" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.Visualize}" Grid.Row="9" Grid.ColumnSpan="3"/>
+                    </Grid>
+                </Expander>
+
+                <Line Stroke="#B4B4B4" StrokeThickness="1" Stretch="Uniform" X1="0" Y1="0" X2="1" Y2="0" Margin="0,10,0,10"/>
+
+                <Expander Header="{x:Static p:Resources.Keys}" Template="{StaticResource ExpanderTemplate1}">
+                    <Grid Margin="{StaticResource LargeMarginT}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{x:Static p:Resources.KeysBackground}"
+                                   Foreground="{StaticResource TextBlock_Header_Brush}"
+                                   Margin="{StaticResource MediumMarginB}"
+                                   Grid.ColumnSpan="3"/>
+
+                        <TextBlock Text="X"
+                                   Foreground="{StaticResource TextBlock_Normal_Brush}"
+                                   Grid.Row="1"/>
+                        
+                        <TextBox x:Name="textBox_keysBG_X"
+                                 Style="{StaticResource STY_TBX}"
+                                 Margin="{StaticResource MediumMarginB}"
+                                 Grid.Row="1" Grid.Column="2"/>
+
+                        <TextBlock Text="Y"
+                                   Foreground="{StaticResource TextBlock_Normal_Brush}"
+                                   Grid.Row="2"/>
+                        
+                        <TextBox x:Name="textBox_keysBG_Y"
+                                 Style="{StaticResource STY_TBX}"
+                                 Margin="{StaticResource MediumMarginB}"
+                                 Grid.Row="2" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Width}"
+                                   Foreground="{StaticResource TextBlock_Normal_Brush}"
+                                   Grid.Row="3"/>
+                        
+                        <TextBox x:Name="textBox_keysBG_W"
+                                 Style="{StaticResource STY_TBX}"
+                                 Margin="{StaticResource MediumMarginB}"
+                                 Grid.Row="3" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Height}"
+                                   Foreground="{StaticResource TextBlock_Normal_Brush}"
+                                   Grid.Row="4"/>
+                        
+                        <TextBox x:Name="textBox_keysBG_H"
+                                 Style="{StaticResource STY_TBX}"
+                                 Margin="{StaticResource MediumMarginB}"
+                                 Grid.Row="4" Grid.Column="2"/>
+
+                        <Button Click="Button_Click_KeysBackgroundApplyChanges"
+                                Style="{StaticResource ButtonStyle1}"
+                                Content="{x:Static p:Resources.Apply}"
+                                Margin="{StaticResource LargeMarginB}"
+                                Grid.Row="5" Grid.ColumnSpan="3"/>
+
+                        <CheckBox x:Name="checkBox_drawKeys"
+                                  Content="{x:Static p:Resources.DrawKeys}"
+                                  Style="{StaticResource STY_CKB}"
+                                  Checked="CheckBox_DrawKeys_Checked"
+                                  Unchecked="CheckBox_DrawKeys_Unchecked"
+                                  Margin="{StaticResource MediumMarginB}"
+                                  Grid.Row="6" Grid.ColumnSpan="3"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Keys1357}"
+                                   Foreground="{StaticResource TextBlock_Header_Brush}"
+                                   Margin="{StaticResource MediumMarginB}"
+                                   Grid.Row="7" Grid.ColumnSpan="3"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Margin}"
+                                   Foreground="{StaticResource TextBlock_Normal_Brush}"
+                                   Grid.Row="8"/>
+                        
+                        <TextBox x:Name="textBox_keys1357margin"
+                                 Style="{StaticResource STY_TBX}"
+                                 Margin="{StaticResource MediumMarginB}"
+                                 Grid.Row="8" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Height}"
+                                   Foreground="{StaticResource TextBlock_Normal_Brush}"
+                                   Grid.Row="9"/>
+                        
+                        <TextBox x:Name="textBox_keys1357SH"
+                                 Style="{StaticResource STY_TBX}"
+                                 Margin="{StaticResource LargeMarginB}"
+                                 Grid.Row="9" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Keys246}"
+                                   Foreground="{StaticResource TextBlock_Header_Brush}"
+                                   Margin="{StaticResource MediumMarginB}"
+                                   Grid.Row="10" Grid.ColumnSpan="3"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Margin}"
+                                   Foreground="{StaticResource TextBlock_Normal_Brush}"
+                                   Grid.Row="11"/>
+                        
+                        <TextBox x:Name="textBox_keys246margin"
+                                 Style="{StaticResource STY_TBX}"
+                                 Margin="{StaticResource MediumMarginB}"
+                                 Grid.Row="11" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Height}"
+                                   Foreground="{StaticResource TextBlock_Normal_Brush}"
+                                   Grid.Row="12"/>
+                        
+                        <TextBox x:Name="textBox_keys246SH"
+                                 Style="{StaticResource STY_TBX}"
+                                 Margin="{StaticResource MediumMarginB}"
+                                 Grid.Row="12" Grid.Column="2"/>
+
+                        <Button Click="Button_Click_KeysApplyChanges"
+                                Style="{StaticResource ButtonStyle1}"
+                                Content="{x:Static p:Resources.Apply}"
+                                Grid.Row="13" Grid.ColumnSpan="3"/>
+                    </Grid>
+                </Expander>
+
+                <Line Stroke="#B4B4B4" StrokeThickness="1" Stretch="Uniform" X1="0" Y1="0" X2="1" Y2="0" Margin="0,10,0,10"/>
+
+                <Expander Header="{x:Static p:Resources.Notes}" Template="{StaticResource ExpanderTemplate1}">
+                    <Grid Margin="{StaticResource LargeMarginT}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <CheckBox x:Name="checkBox_drawNotes"
+                                  Content="{x:Static p:Resources.DrawNotes}"
+                                  Foreground="{StaticResource TextBlock_Normal_Brush}"
+                                  Margin="{StaticResource MediumMarginB}"
+                                  Checked="CheckBox_DrawNotes_Checked"
+                                  Unchecked="CheckBox_DrawNotes_Unchecked"
+                                  Grid.ColumnSpan="3"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Height}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="1"/>
+                        <TextBox x:Name="textBox_notesHeight" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="1" Grid.Column="2"/>
+
+                        <Button Click="Button_Click_NotesApplyChanges" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.Apply}" Grid.Row="2" Grid.ColumnSpan="3"/>
+                    </Grid>
+                </Expander>
+
+                <Line Stroke="#B4B4B4" StrokeThickness="1" Stretch="Uniform" X1="0" Y1="0" X2="1" Y2="0" Margin="0,10,0,10"/>
+
+                <Expander Header="{x:Static p:Resources.Injections}" Template="{StaticResource ExpanderTemplate1}">
+                    <Grid Margin="{StaticResource LargeMarginT}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{x:Static p:Resources.GlobalWidth}" Foreground="{StaticResource TextBlock_Normal_Brush}"/>
+                        <TextBox x:Name="textBox_injectionsSW" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.GlobalHeight}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="1"/>
+                        <TextBox x:Name="textBox_injectionsSH" Style="{StaticResource STY_TBX}" Margin="{StaticResource LargeMarginB}" Grid.Row="1" Grid.Column="2"/>
+
+                        <Button Click="Button_Click_Injections0ApplyChanges" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.Apply}" Margin="{StaticResource LargeMarginB}" Grid.Row="2" Grid.ColumnSpan="3"/>
+
+                        <TextBlock Foreground="{StaticResource TextBlock_Header_Brush}" Text="{x:Static p:Resources.IndividualConfigurations}" Margin="{StaticResource MediumMarginB}" Grid.Row="3" Grid.ColumnSpan="3"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Injections}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="4"/>
+                        <ComboBox x:Name="comboBox_injections" Style="{DynamicResource ComboBoxStyle1}" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged_Injections" Margin="{StaticResource MediumMarginB}" Grid.Row="4" Grid.Column="2">
+                            <ComboBoxItem Content="{x:Static p:Resources.AutoplayAndReplay}"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.Gauges}"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.PlacementModifiers}"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.AllLN}"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.LR2NormalJudge}"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.NoSSC}"/>
+                        </ComboBox>
+
+                        <TextBlock Text="X" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="5"/>
+                        <TextBox x:Name="textBox_injectionsX" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="5" Grid.Column="2"/>
+
+                        <TextBlock Text="Y" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="6"/>
+                        <TextBox x:Name="textBox_injectionsY" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="6" Grid.Column="5"/>
+
+                        <Button Click="Button_Click_InjectionsApplyChanges" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.Apply}" Grid.Row="7" Grid.ColumnSpan="3"/>
+                    </Grid>
+                </Expander>
+
+                <Line Stroke="#B4B4B4" StrokeThickness="1" Stretch="Uniform" X1="0" Y1="0" X2="1" Y2="0" Margin="0,10,0,10"/>
+
+                <Expander Header="{x:Static p:Resources.HealthBar}" Template="{StaticResource ExpanderTemplate1}">
+                    <Grid Margin="{StaticResource LargeMarginT}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <CheckBox x:Name="checkBox_healthBarFillIsHorizontal" Style="{StaticResource STY_CKB}" Content="{x:Static p:Resources.HorizontalFill}" Margin="{StaticResource MediumMarginB}" Grid.ColumnSpan="3"/>
+
+                        <TextBlock Foreground="{StaticResource TextBlock_Header_Brush}" Text="{x:Static p:Resources.HealthBarBackground}" Margin="{StaticResource MediumMarginB}" Grid.Row="1" Grid.ColumnSpan="3"/>
+                        
+                        <TextBlock Text="X" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="2"/>
+                        <TextBox x:Name="textBox_healthBarBackgroundX" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="2" Grid.Column="2"/>
+                        
+                        <TextBlock Text="Y" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="3"/>
+                        <TextBox x:Name="textBox_healthBarBackgroundY" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="3" Grid.Column="2"/>
+                        
+                        <TextBlock Text="{x:Static p:Resources.Width}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="4"/>
+                        <TextBox x:Name="textBox_healthBarBackgroundSW" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="4" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Height}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="5"/>
+                        <TextBox x:Name="textBox_healthBarBackgroundSH" Style="{StaticResource STY_TBX}" Margin="{StaticResource LargeMarginB}" Grid.Row="5" Grid.Column="2"/>
+
+                        <TextBlock Foreground="{StaticResource TextBlock_Header_Brush}" Text="{x:Static p:Resources.HealthBar}" Margin="{StaticResource MediumMarginB}" Grid.Row="6" Grid.ColumnSpan="3"/>
+                        
+                        <TextBlock Text="X" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="7"/>
+                        <TextBox x:Name="textBox_healthBarX" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="7" Grid.Column="2"/>
+                        
+                        <TextBlock Text="Y" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="8"/>
+                        <TextBox x:Name="textBox_healthBarY" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="8" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Width}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="9"/>
+                        <TextBox x:Name="textBox_healthBarSW" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="9" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Height}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="10"/>
+                        <TextBox x:Name="textBox_healthBarSH" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="10" Grid.Column="2"/>
+
+                        <Button Click="Button_Click_HealthBarApplyChanges" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.Apply}" Grid.Row="11" Grid.ColumnSpan="3"/>
+                    </Grid>
+                </Expander>
+
+                <Line Stroke="#B4B4B4" StrokeThickness="1" Stretch="Uniform" X1="0" Y1="0" X2="1" Y2="0" Margin="0,10,0,10"/>
+
+                <Expander Header="{x:Static p:Resources.Ranks}" Template="{StaticResource ExpanderTemplate1}">
+                    <Grid Margin="{StaticResource LargeMarginT}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Text="X" Foreground="{StaticResource TextBlock_Normal_Brush}"/>
+                        <TextBox x:Name="textBox_rankX" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Column="2"/>
+                        
+                        <TextBlock Text="Y" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="1"/>
+                        <TextBox x:Name="textBox_rankY" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="1" Grid.Column="2"/>
+                        
+                        <TextBlock Text="{x:Static p:Resources.Width}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="2"/>
+                        <TextBox x:Name="textBox_rankSW" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="2" Grid.Column="2"/>
+                        
+                        <TextBlock Text="{x:Static p:Resources.Height}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="3"/>
+                        <TextBox x:Name="textBox_rankSH" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="3" Grid.Column="2"/>
+
+                        <Button Click="Button_Click_RanksApplyChanges" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.Apply}" Grid.Row="4" Grid.ColumnSpan="3"/>
+                    </Grid>
+                </Expander>
+
+                <Line Stroke="#B4B4B4" StrokeThickness="1" Stretch="Uniform" X1="0" Y1="0" X2="1" Y2="0" Margin="0,10,0,10"/>
+
+                <Expander Header="{x:Static p:Resources.Verdicts}" Template="{StaticResource ExpanderTemplate1}">
+                    <Grid Margin="{StaticResource LargeMarginT}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <CheckBox x:Name="checkBox_judgementsClassicPosition" Style="{StaticResource STY_CKB}" Content="{x:Static p:Resources.ClassicPosition}" Margin="{StaticResource MediumMarginB}" Grid.ColumnSpan="3"/>
+
+                        <TextBlock Text="{x:Static p:Resources.GlobalX}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="1"/>
+                        <TextBox x:Name="textBox_verdicts_X" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="1" Grid.Column="2"/>
+                        
+                        <TextBlock Text="{x:Static p:Resources.GlobalY}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="2"/>
+                        <TextBox x:Name="textBox_verdicts_Y" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="2" Grid.Column="2"/>
+                        
+                        <TextBlock Text="{x:Static p:Resources.GlobalScaleFactorX}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="3"/>
+                        <TextBox x:Name="textBox_verdicts_ScaleW" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="3" Grid.Column="2"/>
+                        
+                        <TextBlock Text="{x:Static p:Resources.GlobalHeight}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="4"/>
+                        <TextBox x:Name="textBox_verdicts_H" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="4" Grid.Column="2"/>
+
+                        <Button Click="Button_Click_VerdictsApplyChanges" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.Apply}" Grid.Row="5" Grid.ColumnSpan="3"/>
+                    </Grid>
+                </Expander>
+
+                <Line Stroke="#B4B4B4" StrokeThickness="1" Stretch="Uniform" X1="0" Y1="0" X2="1" Y2="0" Margin="0,10,0,10"/>
+
+                <Expander Header="{x:Static p:Resources.Placards}" Template="{StaticResource ExpanderTemplate1}">
+                    <Grid Margin="{StaticResource LargeMarginT}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--<StackPanel Margin="{StaticResource MediumMarginB}" Grid.ColumnSpan="3">
+                            <CheckBox x:Name="checkBox_usePlacardHealth" Style="{StaticResource STY_CKB}" Content="{x:Static p:Resources.UseHealthPlacard}" Margin="{StaticResource MediumMarginB}"/>
+                            <CheckBox x:Name="checkBox_usePlacardBpm" Style="{StaticResource STY_CKB}" Content="{x:Static p:Resources.UseBpmPlacard}" Margin="{StaticResource MediumMarginB}"/>
+                            <CheckBox x:Name="checkBox_usePlacardSpeed" Style="{StaticResource STY_CKB}" Content="{x:Static p:Resources.UseScrollSpeedPlacard}" Margin="{StaticResource MediumMarginB}"/>
+                            <CheckBox x:Name="checkBox_usePlacardOffset" Style="{StaticResource STY_CKB}" Content="{x:Static p:Resources.UseOffsetPlacard}" Margin="{StaticResource MediumMarginB}"/>
+                            <CheckBox x:Name="checkBox_usePlacardMaxCombo" Style="{StaticResource STY_CKB}" Content="{x:Static p:Resources.UseMaxComboPlacard}" Margin="{StaticResource MediumMarginB}"/>
+                            <CheckBox x:Name="checkBox_usePlacardTime" Style="{StaticResource STY_CKB}" Content="{x:Static p:Resources.UseTimePlacard}" Margin="{StaticResource MediumMarginB}"/>
+                            <CheckBox x:Name="checkBox_usePlacardAccuracy" Style="{StaticResource STY_CKB}" Content="{x:Static p:Resources.UseAccuracyPlacard}" Margin="{StaticResource MediumMarginB}"/>
+                            <CheckBox x:Name="checkBox_usePlacardVerdicts" Style="{StaticResource STY_CKB}" Content="{x:Static p:Resources.UseVerdictCountPlacards}"/>
+                        </StackPanel>-->
+
+                        <ComboBox x:Name="comboBox_placards" Style="{DynamicResource ComboBoxStyle1}" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged_Placards" Margin="{StaticResource MediumMarginB}" Grid.ColumnSpan="3">
+                            <ComboBoxItem Content="{x:Static p:Resources.Health}"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.BPM}"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.ScrollSpeed}"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.Offset}"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.MaxCombo}"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.Time}"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.Accuracy}"/>
+                            <ComboBoxItem Content="COOL"/>
+                            <ComboBoxItem Content="GOOD"/>
+                            <ComboBoxItem Content="OKAY"/>
+                            <ComboBoxItem Content="BAD"/>
+                            <ComboBoxItem Content="MISS"/>
+                        </ComboBox>
+
+                        <TextBlock Text="X" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="1"/>
+                        <TextBox x:Name="textBox_placard_X" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="1" Grid.Column="2"/>
+                        
+                        <TextBlock Text="Y" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="2"/>
+                        <TextBox x:Name="textBox_placard_Y" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="2" Grid.Column="2"/>
+                        
+                        <TextBlock Text="{x:Static p:Resources.Width}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="3"/>
+                        <TextBox x:Name="textBox_placard_W" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="3" Grid.Column="2"/>
+                        
+                        <TextBlock Text="{x:Static p:Resources.Height}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="4"/>
+                        <TextBox x:Name="textBox_placard_H" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="4" Grid.Column="2"/>
+
+                        <Button Click="Button_Click_PlacardsApplyChanges" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.Apply}" Grid.Row="5" Grid.ColumnSpan="3"/>
+                    </Grid>
+                </Expander>
+
+                <Line Stroke="#B4B4B4" StrokeThickness="1" Stretch="Uniform" X1="0" Y1="0" X2="1" Y2="0" Margin="0,10,0,10"/>
+
+                <Expander Header="{x:Static p:Resources.Numbers}" Template="{StaticResource ExpanderTemplate1}">
+                    <Grid Margin="{StaticResource LargeMarginT}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <ComboBox x:Name="comboBox_numbers" Style="{DynamicResource ComboBoxStyle1}" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged_Numbers" Margin="{StaticResource MediumMarginB}" Grid.ColumnSpan="3">
+                            <ComboBoxItem Content="{x:Static p:Resources.Health}"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.BPM}"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.ScrollSpeed}"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.Offset}"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.MaxCombo}"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.Time}"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.Accuracy}"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.VerdictCombo}"/>
+                        </ComboBox>
+
+                        <TextBlock Text="X" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="1"/>
+                        <TextBox x:Name="textBox_number_X" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="1" Grid.Column="2"/>
+                        
+                        <TextBlock Text="Y" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="2"/>
+                        <TextBox x:Name="textBox_number_Y" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="2" Grid.Column="2"/>
+                        
+                        <TextBlock Text="{x:Static p:Resources.Width}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="3"/>
+                        <TextBox x:Name="textBox_number_W" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="3" Grid.Column="2"/>
+                        
+                        <TextBlock Text="{x:Static p:Resources.Height}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="4"/>
+                        <TextBox x:Name="textBox_number_H" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="4" Grid.Column="2"/>
+
+                        <Button Click="Button_Click_NumbersApplyChanges" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.Apply}" Margin="{StaticResource LargeMarginB}" Grid.Row="5" Grid.ColumnSpan="3"/>
+
+                        <TextBlock Foreground="{StaticResource TextBlock_Header_Brush}" Text="{x:Static p:Resources.ForVerdictCounterNumbers}" Margin="{StaticResource MediumMarginB}" Grid.Row="6" Grid.ColumnSpan="3"/>
+
+                        <TextBlock Text="{x:Static p:Resources.GlobalWidth}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="7"/>
+                        <TextBox x:Name="textBox_verdictCounterNumbers_W" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="7" Grid.Column="2"/>
+                        
+                        <TextBlock Text="{x:Static p:Resources.GlobalHeight}" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="8"/>
+                        <TextBox x:Name="textBox_verdictCounterNumbers_H" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="8" Grid.Column="2"/>
+
+                        <Button Click="Button_Click_Numbers21ApplyChanges" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.Apply}" Margin="{StaticResource MediumMarginB}" Grid.Row="9" Grid.ColumnSpan="3"/>
+
+                        <ComboBox x:Name="comboBox_verdictCounterNumbers" Style="{DynamicResource ComboBoxStyle1}" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged_CounterNumbers" Margin="{StaticResource MediumMarginB}" Grid.Row="10" Grid.ColumnSpan="3">
+                            <ComboBoxItem Content="COOL"/>
+                            <ComboBoxItem Content="GOOD"/>
+                            <ComboBoxItem Content="OKAY"/>
+                            <ComboBoxItem Content="BAD"/>
+                            <ComboBoxItem Content="MISS"/>
+                        </ComboBox>
+
+                        <TextBlock Text="X" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="11"/>
+                        <TextBox x:Name="textBox_verdictCounterNumber_X" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="11" Grid.Column="2"/>
+                        
+                        <TextBlock Text="Y" Foreground="{StaticResource TextBlock_Normal_Brush}" Grid.Row="12"/>
+                        <TextBox x:Name="textBox_verdictCounterNumber_Y" Style="{StaticResource STY_TBX}" Margin="{StaticResource MediumMarginB}" Grid.Row="12" Grid.Column="2"/>
+
+                        <Button Click="Button_Click_Numbers2ApplyChanges" Style="{StaticResource ButtonStyle1}" Content="{x:Static p:Resources.Apply}" Grid.Row="13" Grid.ColumnSpan="3"/>
+                    </Grid>
+                </Expander>
+
+                <Line Stroke="#B4B4B4" StrokeThickness="1" Stretch="Uniform" X1="0" Y1="0" X2="1" Y2="0" Margin="0,10,0,10"/>
+
+                <Expander Header="{x:Static p:Resources.ArbitraryTextures}" Template="{StaticResource ExpanderTemplate1}">
+                    <Grid Margin="{StaticResource LargeMarginT}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--<ComboBox x:Name="comboBox_ArbitraryTextures"
+                                  Style="{DynamicResource ComboBoxStyle1}"
+                                  SelectedIndex="0"
+                                  Margin="{StaticResource MediumMarginB}"
+                                  Grid.ColumnSpan="3">
+                            <ComboBoxItem Content="Arbitrary texture 1"/>
+                        </ComboBox>-->
+
+                        <TextBlock Text="X"
+                                   Foreground="{StaticResource TextBlock_Normal_Brush}"/>
+                        
+                        <TextBox x:Name="textBox_arbitraryTexture_X"
+                                 Style="{StaticResource STY_TBX}"
+                                 Margin="{StaticResource MediumMarginB}"
+                                 Grid.Column="2"/>
+
+                        <TextBlock Text="Y"
+                                   Foreground="{StaticResource TextBlock_Normal_Brush}"
+                                   Grid.Row="1"/>
+                        
+                        <TextBox x:Name="textBox_arbitraryTexture_Y"
+                                 Style="{StaticResource STY_TBX}"
+                                 Margin="{StaticResource MediumMarginB}"
+                                 Grid.Row="1" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Width}"
+                                   Foreground="{StaticResource TextBlock_Normal_Brush}"
+                                   Grid.Row="2"/>
+                        
+                        <TextBox x:Name="textBox_arbitraryTexture_W"
+                                 Style="{StaticResource STY_TBX}"
+                                 Margin="{StaticResource MediumMarginB}"
+                                 Grid.Row="2" Grid.Column="2"/>
+
+                        <TextBlock Text="{x:Static p:Resources.Height}"
+                                   Foreground="{StaticResource TextBlock_Normal_Brush}"
+                                   Grid.Row="3"/>
+                        
+                        <TextBox x:Name="textBox_arbitraryTexture_H"
+                                 Style="{StaticResource STY_TBX}"
+                                 Margin="{StaticResource MediumMarginB}"
+                                 Grid.Row="3" Grid.Column="2"/>
+
+                        <Button Click="Button_Click_ArbitraryTexturesApplyChanges"
+                                Style="{StaticResource ButtonStyle1}"
+                                Content="{x:Static p:Resources.Apply}"
+                                Grid.Row="4" Grid.ColumnSpan="3"/>
+                    </Grid>
+                </Expander>
+            </StackPanel>
+        </ScrollViewer>
+
+        <ScrollViewer Grid.Row="1" Grid.Column="1" Style="{DynamicResource ScrollViewerStyle1}" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+            <Canvas x:Name="canvas" Background="Black" Margin="5" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+        </ScrollViewer>
+
+        <StatusBar x:Name="statusBar" Grid.Row="2" Grid.ColumnSpan="2">
+            <StatusBarItem> 
+                <TextBlock x:Name="textBlock_selectedJsonFile" Text="JSON file: None"/>
+            </StatusBarItem>
+            
+            <StatusBarItem>
+                <TextBlock x:Name="textBlock_selectedImageFile" Text="Image file: None"/>
+            </StatusBarItem>
+            
+            <Separator/>
+
+            <StatusBarItem>
+                <TextBlock x:Name="textBlock_componentX" Text="X:0"/>
+            </StatusBarItem>
+
+            <StatusBarItem>
+                <TextBlock x:Name="textBlock_componentY" Text="Y:0"/>
+            </StatusBarItem>
+
+            <StatusBarItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="textBlock_componentSW_Title" Text="Width:"/>
+                    <TextBlock x:Name="textBlock_componentSW" Text="0"/>
+                </StackPanel>
+            </StatusBarItem>
+
+            <StatusBarItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="textBlock_componentSH_Title" Text="Height:"/>
+                    <TextBlock x:Name="textBlock_componentSH" Text="0"/>
+                </StackPanel>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

@@ -1,0 +1,251 @@
+﻿<Application x:Class="LluviaTextureHelper.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:LluviaTextureHelper"
+             StartupUri="MainWindow.xaml"
+             DispatcherUnhandledException="Application_DispatcherUnhandledException">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="DarkTheme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <SolidColorBrush x:Key="TextBlock_Normal_Brush" Color="LavenderBlush"/>
+            <SolidColorBrush x:Key="TextBlock_Header_Brush" Color="PeachPuff"/>
+
+            <Style TargetType="TextBox" x:Key="STY_TBX">
+                <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush_Normal}"/>
+                <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush_Normal}"/>
+                <Setter Property="Foreground" Value="{StaticResource ControlForegroundBrush_Normal}"/>
+                <Setter Property="MinWidth" Value="86"/>
+                <Setter Property="MinHeight" Value="20"/>
+            </Style>
+
+            <Style TargetType="CheckBox" x:Key="STY_CKB">
+                <Setter Property="Foreground" Value="{StaticResource ControlForegroundBrush_Normal}"/>
+            </Style>
+
+            <!--<Style TargetType="Expander" x:Key="STY_EXP">
+                <Setter Property="Foreground" Value="{StaticResource ControlForegroundBrush_Normal}"/>
+            </Style>-->
+
+            <Style TargetType="ListBox" x:Key="STY_LTB">
+                <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush_Normal}"/>
+                <Setter Property="Background" Value="{StaticResource ControlBackgroundBrush_Normal}"/>
+            </Style>
+
+            <!-- Resources without x:Key -->
+
+            <Style TargetType="ListBoxItem">
+                <Setter Property="Foreground" Value="{StaticResource ControlForegroundBrush_Normal}"/>
+            </Style>
+
+            <Style TargetType="ComboBoxItem">
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ComboBoxItem">
+                            <Border x:Name="border" Padding="4,2" BorderThickness="1" BorderBrush="#2E2E2E" Background="#2E2E2E" TextBlock.Foreground="Red" SnapsToDevicePixels="True">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <!-- Seen on the last hovered-on element when the mouse leaves the ComboBox -->
+                                        <VisualState x:Name="Normal">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="#2E2E2E"/>
+                                                </ColorAnimationUsingKeyFrames>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="#2E2E2E"/>
+                                                </ColorAnimationUsingKeyFrames>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="White"/>
+                                                </ColorAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="Red"/>
+                                                </ColorAnimationUsingKeyFrames>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="Sienna"/>
+                                                </ColorAnimationUsingKeyFrames>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="White"/>
+                                                </ColorAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+
+                                        <!-- Seen on a hovered-on element that was the last previously hovered-on element -->
+                                        <VisualState x:Name="MouseOver">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="DodgerBlue"/>
+                                                </ColorAnimationUsingKeyFrames>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="#2E2E2E"/>
+                                                </ColorAnimationUsingKeyFrames>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="White"/>
+                                                </ColorAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+
+                                    <VisualStateGroup x:Name="FocusStates">
+                                        <!-- Seen on a hovered-on element -->
+                                        <VisualState x:Name="Focused">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="DodgerBlue"/>
+                                                </ColorAnimationUsingKeyFrames>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="#2E2E2E"/>
+                                                </ColorAnimationUsingKeyFrames>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="White"/>
+                                                </ColorAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+
+                                        <!-- Seen on the non-hovered elements (that had been hovered-on at least one time) -->
+                                        <VisualState x:Name="Unfocused">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="#2E2E2E"/>
+                                                </ColorAnimationUsingKeyFrames>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="#2E2E2E"/>
+                                                </ColorAnimationUsingKeyFrames>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="White"/>
+                                                </ColorAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+
+                                    <VisualStateGroup x:Name="SelectionStates">
+                                        <!-- Curiosly, seen on elements with IsEnabled="False" AND that also are the SelectedIndex, it disappears when you select other element -->
+                                        <!-- Never saw it apart from that -->
+                                        <VisualState x:Name="Selected">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="LightPink"/>
+                                                </ColorAnimationUsingKeyFrames>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="Magenta"/>
+                                                </ColorAnimationUsingKeyFrames>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="White"/>
+                                                </ColorAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+
+                                        <!-- Seen on previously selected elements, the state disappears if you hover on the element -->
+                                        <VisualState x:Name="Unselected">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="#2E2E2E"/>
+                                                </ColorAnimationUsingKeyFrames>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="#2E2E2E"/>
+                                                </ColorAnimationUsingKeyFrames>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="White"/>
+                                                </ColorAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+
+                                        <VisualState x:Name="SelectedUnfocused">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="LightPink"/>
+                                                </ColorAnimationUsingKeyFrames>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="Green"/>
+                                                </ColorAnimationUsingKeyFrames>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="White"/>
+                                                </ColorAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+
+                                    <VisualStateGroup x:Name="ValidationStates">
+                                        <!-- You can see this when you open the ComboBox for the first time, and on subsequent times on elements that were never hovered-on -->
+                                        <VisualState x:Name="Valid">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="#2E2E2E"/>
+                                                </ColorAnimationUsingKeyFrames>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="#2E2E2E"/>
+                                                </ColorAnimationUsingKeyFrames>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="White"/>
+                                                </ColorAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+
+                                        <VisualState x:Name="InvalidFocused">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="LightPink"/>
+                                                </ColorAnimationUsingKeyFrames>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="Red"/>
+                                                </ColorAnimationUsingKeyFrames>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="White"/>
+                                                </ColorAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+
+                                        <VisualState x:Name="InvalidUnfocused">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="LightPink"/>
+                                                </ColorAnimationUsingKeyFrames>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="Yellow"/>
+                                                </ColorAnimationUsingKeyFrames>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="White"/>
+                                                </ColorAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <ContentPresenter/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

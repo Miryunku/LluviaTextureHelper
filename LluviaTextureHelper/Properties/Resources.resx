@@ -1,0 +1,711 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Bombs" xml:space="preserve">
+    <value>Bombs</value>
+    <comment>ExpanderHeader</comment>
+  </data>
+  <data name="Canvas" xml:space="preserve">
+    <value>Canvas</value>
+    <comment>ExpanderHeader</comment>
+  </data>
+  <data name="Colors" xml:space="preserve">
+    <value>Colors</value>
+    <comment>ExpanderHeader</comment>
+  </data>
+  <data name="Companion" xml:space="preserve">
+    <value>Companion</value>
+    <comment>ExpanderHeader</comment>
+  </data>
+  <data name="Injections" xml:space="preserve">
+    <value>Injections</value>
+    <comment>ExpanderHeader, Label</comment>
+  </data>
+  <data name="Keys" xml:space="preserve">
+    <value>Keys</value>
+    <comment>ExpanderHeader</comment>
+  </data>
+  <data name="Lasers" xml:space="preserve">
+    <value>Lasers</value>
+    <comment>ExpanderHeader</comment>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Notes</value>
+    <comment>ExpanderHeader</comment>
+  </data>
+  <data name="Playfield" xml:space="preserve">
+    <value>Playfield</value>
+    <comment>ExpanderHeader</comment>
+  </data>
+  <data name="SkinCredits" xml:space="preserve">
+    <value>Skin attributions</value>
+    <comment>ExpanderHeader</comment>
+  </data>
+  <data name="Wallpapers" xml:space="preserve">
+    <value>Wallpapers</value>
+    <comment>ExpanderHeader</comment>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Height</value>
+    <comment>Label</comment>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Width</value>
+    <comment>Label</comment>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export</value>
+    <comment>Menu_File</comment>
+  </data>
+  <data name="OpenJsonFile" xml:space="preserve">
+    <value>Open JSON file</value>
+    <comment>Menu_File</comment>
+  </data>
+  <data name="HealthBar" xml:space="preserve">
+    <value>Health bar</value>
+    <comment>ExpanderHeader, LabelTitle</comment>
+  </data>
+  <data name="Ranks" xml:space="preserve">
+    <value>Ranks</value>
+    <comment>ExpanderHeader</comment>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+    <comment>Button</comment>
+  </data>
+  <data name="AllLN" xml:space="preserve">
+    <value>All-LN</value>
+    <comment>ComboBoxItem</comment>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Apply</value>
+    <comment>Button</comment>
+  </data>
+  <data name="AutoplayAndReplay" xml:space="preserve">
+    <value>Autoplay and Replay</value>
+    <comment>ComboBoxItem</comment>
+  </data>
+  <data name="Blue" xml:space="preserve">
+    <value>Blue</value>
+    <comment>Label</comment>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+    <comment>Label</comment>
+  </data>
+  <data name="BPM" xml:space="preserve">
+    <value>BPM</value>
+    <comment>ComboBoxItem</comment>
+  </data>
+  <data name="ClassicPosition" xml:space="preserve">
+    <value>Classic position</value>
+    <comment>CheckBox</comment>
+  </data>
+  <data name="Columns1357" xml:space="preserve">
+    <value>Columns 1,3,5,7</value>
+    <comment>ComboBoxItem</comment>
+  </data>
+  <data name="Columns1357Width" xml:space="preserve">
+    <value>Columns 1,3,5,7 width</value>
+    <comment>Label</comment>
+  </data>
+  <data name="Columns246" xml:space="preserve">
+    <value>Columns 2,4,6</value>
+    <comment>ComboBoxItem</comment>
+  </data>
+  <data name="Columns246Width" xml:space="preserve">
+    <value>Columns 2,4,6 width</value>
+    <comment>Label</comment>
+  </data>
+  <data name="ColumnSeparator" xml:space="preserve">
+    <value>Column separator</value>
+    <comment>ComboBoxItem</comment>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Duration</value>
+    <comment>Label</comment>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+    <comment>Menu_File</comment>
+  </data>
+  <data name="HealthBarBackground" xml:space="preserve">
+    <value>Health bar background</value>
+    <comment>LabelTitle</comment>
+  </data>
+  <data name="Keys1357" xml:space="preserve">
+    <value>Keys (1,3,5,7)</value>
+    <comment>LabelTitle</comment>
+  </data>
+  <data name="Keys246" xml:space="preserve">
+    <value>Keys (2,4,6)</value>
+    <comment>LabelTitle</comment>
+  </data>
+  <data name="ForVerdictCounterNumbers" xml:space="preserve">
+    <value>For verdict counter numbers</value>
+    <comment>LabelTitle</comment>
+  </data>
+  <data name="FrameHeight" xml:space="preserve">
+    <value>Frame height</value>
+    <comment>Label</comment>
+  </data>
+  <data name="FrameQuantity" xml:space="preserve">
+    <value>Frame quantity</value>
+    <comment>Label</comment>
+  </data>
+  <data name="FrameWidth" xml:space="preserve">
+    <value>Frame width</value>
+    <comment>Label</comment>
+  </data>
+  <data name="Gauges" xml:space="preserve">
+    <value>Gauges</value>
+    <comment>ComboBoxItem</comment>
+  </data>
+  <data name="GlobalHeight" xml:space="preserve">
+    <value>Global height</value>
+    <comment>Label</comment>
+  </data>
+  <data name="GlobalScaleFactorX" xml:space="preserve">
+    <value>Global scale factor X</value>
+    <comment>Label</comment>
+  </data>
+  <data name="GlobalWidth" xml:space="preserve">
+    <value>Global width</value>
+    <comment>Label</comment>
+  </data>
+  <data name="GlobalX" xml:space="preserve">
+    <value>Global X</value>
+    <comment>Label</comment>
+  </data>
+  <data name="GlobalY" xml:space="preserve">
+    <value>Global Y</value>
+    <comment>Label</comment>
+  </data>
+  <data name="Green" xml:space="preserve">
+    <value>Green</value>
+    <comment>Label</comment>
+  </data>
+  <data name="Health" xml:space="preserve">
+    <value>Health</value>
+    <comment>ComboBoxItem</comment>
+  </data>
+  <data name="ImageFile" xml:space="preserve">
+    <value>Image file</value>
+    <comment>Label</comment>
+  </data>
+  <data name="VerdictCombo" xml:space="preserve">
+    <value>Verdict combo</value>
+    <comment>ComboBoxItem</comment>
+  </data>
+  <data name="VerdictLine" xml:space="preserve">
+    <value>Verdict line</value>
+    <comment>ComboBoxItem</comment>
+  </data>
+  <data name="Verdicts" xml:space="preserve">
+    <value>Verdicts</value>
+    <comment>ExpanderHeader</comment>
+  </data>
+  <data name="LaserAnimations" xml:space="preserve">
+    <value>Laser animations</value>
+    <comment>LabelTitle</comment>
+  </data>
+  <data name="LR2NormalJudge" xml:space="preserve">
+    <value>LR2NormalJudge</value>
+    <comment>ComboBoxItem</comment>
+  </data>
+  <data name="MaxCombo" xml:space="preserve">
+    <value>MaxCombo</value>
+    <comment>ComboBoxItem</comment>
+  </data>
+  <data name="NoSSC" xml:space="preserve">
+    <value>No-SSC</value>
+    <comment>ComboBoxItem</comment>
+  </data>
+  <data name="Numbers" xml:space="preserve">
+    <value>Numbers</value>
+    <comment>ExpanderHeader</comment>
+  </data>
+  <data name="Offset" xml:space="preserve">
+    <value>Offset</value>
+    <comment>ComboBoxItem</comment>
+  </data>
+  <data name="OffsetFromLeftSide" xml:space="preserve">
+    <value>Offset from left side</value>
+    <comment>Label</comment>
+  </data>
+  <data name="Opacity" xml:space="preserve">
+    <value>Opacity</value>
+    <comment>Label</comment>
+  </data>
+  <data name="Placards" xml:space="preserve">
+    <value>Placards</value>
+    <comment>ExpanderHeader</comment>
+  </data>
+  <data name="PlacementModifiers" xml:space="preserve">
+    <value>Placement modifiers</value>
+    <comment>ComboBoxItem</comment>
+  </data>
+  <data name="PlayfieldBorder" xml:space="preserve">
+    <value>Playfield's border</value>
+    <comment>ComboBoxItem</comment>
+  </data>
+  <data name="Accuracy" xml:space="preserve">
+    <value>Accuracy</value>
+    <comment>ComboBoxItem</comment>
+  </data>
+  <data name="Red" xml:space="preserve">
+    <value>Red</value>
+    <comment>Label</comment>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+    <comment>Button</comment>
+  </data>
+  <data name="Resize" xml:space="preserve">
+    <value>Resize</value>
+    <comment>Button</comment>
+  </data>
+  <data name="ScrollSpeed" xml:space="preserve">
+    <value>Scroll speed</value>
+    <comment>ComboBoxItem</comment>
+  </data>
+  <data name="SkinCreator" xml:space="preserve">
+    <value>Skin creator</value>
+    <comment>Label</comment>
+  </data>
+  <data name="SkinName" xml:space="preserve">
+    <value>Skin name</value>
+    <comment>Label</comment>
+  </data>
+  <data name="SkinVersion" xml:space="preserve">
+    <value>Skin version</value>
+    <comment>Label</comment>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Time</value>
+    <comment>ComboBoxItem</comment>
+  </data>
+  <data name="UseBpmPlacard" xml:space="preserve">
+    <value>Use BPM placard</value>
+    <comment>CheckBox</comment>
+  </data>
+  <data name="UseCompanion" xml:space="preserve">
+    <value>Use companion</value>
+    <comment>CheckBox</comment>
+  </data>
+  <data name="UseHealthPlacard" xml:space="preserve">
+    <value>Use health placard</value>
+    <comment>CheckBox</comment>
+  </data>
+  <data name="UseVerdictCountPlacards" xml:space="preserve">
+    <value>Use verdict count placards</value>
+    <comment>CheckBox</comment>
+  </data>
+  <data name="UseMaxComboPlacard" xml:space="preserve">
+    <value>Use max combo placard</value>
+    <comment>CheckBox</comment>
+  </data>
+  <data name="UseOffsetPlacard" xml:space="preserve">
+    <value>Use offset placard</value>
+    <comment>CheckBox</comment>
+  </data>
+  <data name="UseAccuracyPlacard" xml:space="preserve">
+    <value>Use accuracy placard</value>
+    <comment>CheckBox</comment>
+  </data>
+  <data name="UseScrollSpeedPlacard" xml:space="preserve">
+    <value>Use scroll speed placard</value>
+    <comment>CheckBox</comment>
+  </data>
+  <data name="UseTimePlacard" xml:space="preserve">
+    <value>Use time placard</value>
+    <comment>CheckBox</comment>
+  </data>
+  <data name="HorizontalFill" xml:space="preserve">
+    <value>Horizontal fill</value>
+    <comment>CheckBox</comment>
+  </data>
+  <data name="ExtractFromCanvas" xml:space="preserve">
+    <value>Extract from canvas</value>
+    <comment>Button</comment>
+  </data>
+  <data name="Functions" xml:space="preserve">
+    <value>Functions</value>
+    <comment>Menu_Functions</comment>
+  </data>
+  <data name="InsertInCanvas" xml:space="preserve">
+    <value>Insert in canvas</value>
+    <comment>Button</comment>
+  </data>
+  <data name="InvalidOperation" xml:space="preserve">
+    <value>Invalid operation</value>
+    <comment>MessageBoxTitle</comment>
+  </data>
+  <data name="LoadSkinData" xml:space="preserve">
+    <value>Load skin data</value>
+    <comment>Menu_Functions</comment>
+  </data>
+  <data name="InvalidOp_LoadSkinData" xml:space="preserve">
+    <value>You cannot load skin data if you have not opened both a JSON file and an image file.</value>
+    <comment>InvalidOperation</comment>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+    <comment>Label</comment>
+  </data>
+  <data name="OpenImageFile" xml:space="preserve">
+    <value>Open image file</value>
+    <comment>Menu_File</comment>
+  </data>
+  <data name="JsonFile" xml:space="preserve">
+    <value>JSON file</value>
+    <comment>Label</comment>
+  </data>
+  <data name="SkinComponents" xml:space="preserve">
+    <value>Skin components</value>
+    <comment>ExpanderHeader</comment>
+  </data>
+  <data name="Notification" xml:space="preserve">
+    <value>Notification</value>
+    <comment>MessageBoxTitle</comment>
+  </data>
+  <data name="Notification_Success_LoadSkinData" xml:space="preserve">
+    <value>Skin data loaded successfully</value>
+    <comment>Notification</comment>
+  </data>
+  <data name="Error_JsonCouldNotBeLoaded" xml:space="preserve">
+    <value>The JSON data could not be parsed.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="InvalidOp_AlreadyInCanvas" xml:space="preserve">
+    <value>This skin component is already in the canvas.</value>
+    <comment>InvalidOperation</comment>
+  </data>
+  <data name="InvalidOp_SkinDataAlreadyLoaded" xml:space="preserve">
+    <value>The skin data is already loaded.</value>
+    <comment>InvalidOperation</comment>
+  </data>
+  <data name="UnloadSkinData" xml:space="preserve">
+    <value>Unload skin data</value>
+    <comment>Menu_Functions</comment>
+  </data>
+  <data name="Mover" xml:space="preserve">
+    <value>Mover</value>
+    <comment>RadioButton</comment>
+  </data>
+  <data name="Resizer" xml:space="preserve">
+    <value>Resizer</value>
+    <comment>RadioButton</comment>
+  </data>
+  <data name="Tools" xml:space="preserve">
+    <value>Tools</value>
+    <comment>LabelTitle</comment>
+  </data>
+  <data name="HeightFactor" xml:space="preserve">
+    <value>Height factor</value>
+    <comment>Label</comment>
+  </data>
+  <data name="IndividualConfigurations" xml:space="preserve">
+    <value>Individual configurations</value>
+    <comment>LabelTitle</comment>
+  </data>
+  <data name="PreviewSkin" xml:space="preserve">
+    <value>Preview skin</value>
+    <comment>Menu_Functions</comment>
+  </data>
+  <data name="Visualize" xml:space="preserve">
+    <value>Visualize</value>
+    <comment>Button</comment>
+  </data>
+  <data name="WidthFactor" xml:space="preserve">
+    <value>Width factor</value>
+    <comment>Label</comment>
+  </data>
+  <data name="DrawPlayfield" xml:space="preserve">
+    <value>Draw playfield</value>
+    <comment>CheckBox</comment>
+  </data>
+  <data name="DrawKeys" xml:space="preserve">
+    <value>Draw keys</value>
+    <comment>CheckBox</comment>
+  </data>
+  <data name="DownKeys" xml:space="preserve">
+    <value>Down keys</value>
+    <comment>RadioButton</comment>
+  </data>
+  <data name="UpKeys" xml:space="preserve">
+    <value>Up keys</value>
+    <comment>RadioButton</comment>
+  </data>
+  <data name="ArbitraryTextures" xml:space="preserve">
+    <value>Arbitrary texture</value>
+    <comment>ExpanderHeader</comment>
+  </data>
+  <data name="UseArbitraryTexture" xml:space="preserve">
+    <value>Use arbitrary texture</value>
+    <comment>CheckBox</comment>
+  </data>
+  <data name="Margin" xml:space="preserve">
+    <value>Margin</value>
+    <comment>Label</comment>
+  </data>
+  <data name="Error_InvalidData" xml:space="preserve">
+    <value>There is a problem with the data in the JSON file.</value>
+    <comment>Error</comment>
+  </data>
+  <data name="ColumnSeparatorsWidth" xml:space="preserve">
+    <value>Column separators width</value>
+    <comment>Label</comment>
+  </data>
+  <data name="AccompanyingArtwork" xml:space="preserve">
+    <value>Accompanying Artwork</value>
+    <comment>ExpanderHeader</comment>
+  </data>
+  <data name="ExtractAllFromCanvas" xml:space="preserve">
+    <value>Extract all from canvas</value>
+    <comment>Button</comment>
+  </data>
+  <data name="InsertAllInCanvas" xml:space="preserve">
+    <value>Insert all in canvas</value>
+    <comment>Button</comment>
+  </data>
+  <data name="Modify" xml:space="preserve">
+    <value>Modify</value>
+    <comment>Button</comment>
+  </data>
+  <data name="OpacityFactor" xml:space="preserve">
+    <value>Opacity factor</value>
+    <comment>Label</comment>
+  </data>
+  <data name="KeysBackground" xml:space="preserve">
+    <value>Keys background</value>
+    <comment>Label</comment>
+  </data>
+  <data name="DrawNotes" xml:space="preserve">
+    <value>Draw notes</value>
+    <comment>CheckBox</comment>
+  </data>
+  <data name="GeneratePreview" xml:space="preserve">
+    <value>Generate preview</value>
+    <comment>Menu_Functions</comment>
+  </data>
+  <data name="Notification_Success_TaskCompleted" xml:space="preserve">
+    <value>Task completed.</value>
+    <comment>Notification</comment>
+  </data>
+  <data name="Injection_AllLN" xml:space="preserve">
+    <value>Injection (AllLN)</value>
+  </data>
+  <data name="Injection_AutoplayAndReplay" xml:space="preserve">
+    <value>Injections (Autoplay and replay)</value>
+  </data>
+  <data name="Injection_Gauges" xml:space="preserve">
+    <value>Injections (Gauges)</value>
+  </data>
+  <data name="Injection_LR2NMJudge" xml:space="preserve">
+    <value>Injection (LR2 Normal judge)</value>
+  </data>
+  <data name="Injection_NoSSC" xml:space="preserve">
+    <value>Injection (No SSC)</value>
+  </data>
+  <data name="Injection_PlacementModifiers" xml:space="preserve">
+    <value>Injections (Placement modifiers)</value>
+  </data>
+  <data name="Numbers_Accuracy" xml:space="preserve">
+    <value>Numbers (Accuracy)</value>
+  </data>
+  <data name="Numbers_BPM" xml:space="preserve">
+    <value>Numbers (BPM)</value>
+  </data>
+  <data name="Numbers_COOL" xml:space="preserve">
+    <value>Numbers (COOL)</value>
+  </data>
+  <data name="Numbers_CounterBAD" xml:space="preserve">
+    <value>Numbers (Counter BAD)</value>
+  </data>
+  <data name="Numbers_CounterCOOL" xml:space="preserve">
+    <value>Numbers (Counter COOL)</value>
+  </data>
+  <data name="Numbers_CounterGOOD" xml:space="preserve">
+    <value>Numbers (Counter GOOD)</value>
+  </data>
+  <data name="Numbers_CounterMISS" xml:space="preserve">
+    <value>Numbers (Counter MISS)</value>
+  </data>
+  <data name="Numbers_CounterOKAY" xml:space="preserve">
+    <value>Numbers (Counter OKAY)</value>
+  </data>
+  <data name="Numbers_Health" xml:space="preserve">
+    <value>Numbers (Health)</value>
+  </data>
+  <data name="Numbers_MaxCombo" xml:space="preserve">
+    <value>Numbers (MaxCombo)</value>
+  </data>
+  <data name="Numbers_Offset" xml:space="preserve">
+    <value>Numbers (Offset)</value>
+  </data>
+  <data name="Numbers_ScrollSpeed" xml:space="preserve">
+    <value>Numbers (Scroll speed)</value>
+  </data>
+  <data name="Numbers_Time" xml:space="preserve">
+    <value>Numbers (Time)</value>
+  </data>
+  <data name="Placard_Accuracy" xml:space="preserve">
+    <value>Placard (Accuracy)</value>
+  </data>
+  <data name="Placard_BAD" xml:space="preserve">
+    <value>Placard (BAD)</value>
+  </data>
+  <data name="Placard_BPM" xml:space="preserve">
+    <value>Placard (BPM)</value>
+  </data>
+  <data name="Placard_COOL" xml:space="preserve">
+    <value>Placard (COOL)</value>
+  </data>
+  <data name="Placard_GOOD" xml:space="preserve">
+    <value>Placard (GOOD)</value>
+  </data>
+  <data name="Placard_Health" xml:space="preserve">
+    <value>Placard (Health)</value>
+  </data>
+  <data name="Placard_MaxCombo" xml:space="preserve">
+    <value>Placard (MaxCombo)</value>
+  </data>
+  <data name="Placard_MISS" xml:space="preserve">
+    <value>Placard (MISS)</value>
+  </data>
+  <data name="Placard_Offset" xml:space="preserve">
+    <value>Placard (Offset)</value>
+  </data>
+  <data name="Placard_OKAY" xml:space="preserve">
+    <value>Placard (OKAY)</value>
+  </data>
+  <data name="Placard_ScrollSpeed" xml:space="preserve">
+    <value>Placard (Scroll speed)</value>
+  </data>
+  <data name="Placard_Time" xml:space="preserve">
+    <value>Placard (Time)</value>
+  </data>
+  <data name="Rank_S" xml:space="preserve">
+    <value>Rank S</value>
+  </data>
+  <data name="Verdict_COOL" xml:space="preserve">
+    <value>Verdict COOL</value>
+  </data>
+</root>
